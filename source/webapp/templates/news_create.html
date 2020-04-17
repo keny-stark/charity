@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Create news{% endblock %}
+{% block menu %}
+{% endblock %}
+{% block content %}
+    <h1>Create news</h1>
+  <form method="POST" action="" class="for_form" enctype="multipart/form-data">
+        {% include 'partial/form_for_news.html' with button_text='create' %}
+    </form>
+{% endblock %}

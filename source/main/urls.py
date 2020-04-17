@@ -16,10 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from main import settings
-from django.urls import path
+from django.urls import path, include
 from webapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index')
+    path('accounts/', include('accounts.urls')),
+    path('application/', ApplicationView.as_view(), name='application'),
+    path('application/<int:pk>/', ApplicationDetailView.as_view(), name='application_one_view'),
+    path('application/<int:pk>/update/', ApplicationUpdateView.as_view(), name='application_update_view'),
+    path('application/create/', ApplicationCreateView.as_view(), name='application_add'),
+    path('application/<int:pk>/delete/', ApplicationDeleteView.as_view(), name='application_delete'),
+    path('', IndexView.as_view(), name='index'),
+    path('news/<int:pk>/', NewsDetailView.as_view(), name='news'),
+    path('news/add/', NewsCreateView.as_view(), name='news_add'),
+    path('news/<int:pk>/edit/', NewsUpdateView.as_view(), name='update_news'),
+    path('news/<int:pk>/delete/', NewsDeleteView.as_view(), name='delete_news'),
+    path('application/search/', ApplicationSearchView.as_view(), name='application_search'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
