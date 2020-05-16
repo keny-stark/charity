@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from main import settings
 from django.urls import path, include
-from webapp.views import *
+from myapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include('api_v1.urls')),
     path('accounts/', include('accounts.urls')),
     path('application/', ApplicationView.as_view(), name='application'),
     path('application/<int:pk>/', ApplicationDetailView.as_view(), name='application_one_view'),
@@ -33,5 +34,8 @@ urlpatterns = [
     path('news/<int:pk>/edit/', NewsUpdateView.as_view(), name='update_news'),
     path('news/<int:pk>/delete/', NewsDeleteView.as_view(), name='delete_news'),
     path('application/search/', ApplicationSearchView.as_view(), name='application_search'),
+    path('application/<int:pk>/add_assistance_provided/', AssistanceProvidedCreateView.as_view(),
+         name='assistance_provided_create'),
+    path('application/delete/', DeleteView.as_view(), name='delete_more')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

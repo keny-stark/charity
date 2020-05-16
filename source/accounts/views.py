@@ -57,9 +57,9 @@ def user_activate(request):
         user.save()
         token.delete()
         login(request, user)
-        return redirect('webapp:index')
+        return redirect('myapp:index')
     except Token.DoesNotExist:
-        return redirect('webapp:index')
+        return redirect('myapp:index')
 
 
 class UserDetailView(DetailView):

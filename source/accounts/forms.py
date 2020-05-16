@@ -28,25 +28,12 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    avatar = forms.ImageField(label='Аватар', required=False)
     birth_date = forms.DateField(label='День рождения', input_formats=['%Y-%m-%d', '%d.%m.%Y'], required=False)
-    site = forms.URLField(max_length=255, label='Сайт', required=False)
 
     def get_initial_for_field(self, field, field_name):
         if field_name in self.Meta.profile_fields:
             return getattr(self.instance.profile, field_name)
         return super().get_initial_for_field(field, field_name)
-
-    def clean_site(self):
-        url = self.cleaned_data.get('site', '')
-        if url:
-            protocol, full_path = url.split('://', 1)
-            site_name = full_path.split('/', 1)[0]
-            site_name = site_name.split('?', 1)[0]
-            print(site_name)
-            if site_name != 'github.com':
-                raise ValidationError('wrong site. only github.com))')
-        return url
 
     def save(self, commit=True):
         user = super().save(commit=commit)
@@ -65,8 +52,8 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'avatar', 'birth_date']
-        profile_fields = ['avatar', 'birth_date', 'site']
+        fields = ['first_name', 'last_name', 'email', 'birth_date']
+        profile_fields = ['birth_date']
         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
 
 
@@ -98,18 +85,3 @@ class PasswordChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['password', 'password_confirm', 'old_password']
-
-
-# class SignUpForm(UserCreationForm):
-#     email = forms.EmailField(required=True, label='Email')
-#
-#     class Meta(UserCreationForm.Meta):
-#         fields = ('username', 'email')
-#
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         try:
-#             User.objects.get(email=email)
-#             raise ValidationError('Email already registered.', code='email_registered')
-#         except User.DoesNotExist:
-#             return email

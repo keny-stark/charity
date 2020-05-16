@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}MySite{% endblock %}</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+               <a href="{% url 'index' %}" class="navbar-brand">Главная</a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                   aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+           </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                     {% if request.user.is_authenticated %}
+                            <a href="{% url 'accounts:detail' request.user.pk %}" class="nav-item nav-link active">
+                               <i class="fas fa-user-circle"></i>
+                            </a>
+                            <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
+
+                             <li><a href="{% url 'news_add' %}" class="nav-link">добавить новость</a></li>
+                             <li><a href="{% url 'application_search' %}" class="nav-link">поиск</a></li>
+                            {% else %}
+                {#                <li class="nav-item"><a href="{% url 'accounts:register' %}" class="nav-link">Регистрация</a></li>#}
+                                <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link">Вход</a></li>
+                            {% endif %}
+
+                           <li><a href="{% url 'application' %}" class="action-btn nav-link">Заявки</a></li>
+                           <li><a href="{% url 'application_add' %}" class="action-btn nav-link">отправить заявку</a></li>
+                            <li><a class="action-btn nav-link for_nav_menu" data-toggle="modal" data-target="#exampleModalScrollable">реквизиты</a></li>
+
+                        {% block menu %}{% endblock %}
+                    </div>
+                <ul class="navbar-nav ml-auto">
+
+						<li class="nav-item">
+							<a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#"><i class="fab fa-facebook-square"></i></a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link" href="#"><i class="fab fa-telegram"></i></a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link" href="#"><i class="fab fa-whatsapp-square"></i></a>
+						</li>
+					</ul>
+                </div>
+        </div>
+</nav>
+{% include 'partial/messages.html' %}
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">какойто текст</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <i class="far fa-credit-card"></i>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Accusamus alias consectetur consequatur distinctio eligendi eos,
+          expedita iusto, maiores nostrum optio quaerat quasi qui quisquam, quos tenetur?
+          A aut, dolorem error, eum ex exercitationem, magni maiores molestias nihil pariatur
+          perferendis possimus qui ratione saepe totam vel veniam vero voluptatem.
+          Dolor expedita illum necessitatibus quod sunt. Adipisci dicta esse et,
+          mollitia nemo similique suscipit ullam! Corporis cum dignissimos fugiat nihil saepe sint voluptas!
+          Alias blanditiis consequatur dolor dolores earum ex expedita facere fugiat hic impedit,
+          inventore ipsam itaque iusto laudantium nesciunt nisi numquam
+          praesentium provident qui repudiandae sequi tenetur totam voluptatem voluptatum?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% block carusel %}{% endblock %}
+<div class="container">
+
+<div id="wrap">
+    {% block content %}{% endblock %}
+</div>
+</div>
+
+<footer class="footer py-4 mt-5">
+		<div class="container">
+			<p>какойто текст</p>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-facebook-square"></i>
+            <i class="fab fa-telegram"></i>
+            <i class="fab fa-whatsapp-square"></i>
+		</div>
+</footer>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

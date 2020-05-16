@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>{{ news.title }}</h1>
+        <img class="img-fluid" src="{{ news.image.url }}" alt="picture">
+    <p>{{ news.description }}</p>
+    <p>time of creation {{ news.created_at }}</p>
+    <a href="{% url 'index' %}" class="btn btn-info" role="button" type="reset">вернутся</a>
+
+{% endblock %}

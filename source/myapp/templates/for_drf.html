@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Create news{% endblock %}
+{% block menu %}
+{% endblock %}
+{% block content %}
+    <h1>Create news</h1>
+
+    <form class="needs-validation" action="{% url 'application_add' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationTooltip01">First name</label>
+      <input type="text" class="form-control" name="name" id="validationTooltip01" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+  </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">description</label>
+                <input type="text" class="form-control" name="description" id="validationTooltip01" required>
+                    <div class="valid-tooltip">
+                        Looks good!
+                    </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">phone</label>
+                <input type="text" class="form-control" name="phone" id="validationTooltip01" required>
+                    <div class="valid-tooltip">
+                        Looks good!
+                    </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">address</label>
+                <input type="text" class="form-control" name="address" id="validationTooltip01" required>
+                    <div class="valid-tooltip">
+                        Looks good!
+                    </div>
+            </div>
+        </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="validationTooltip03">area</label>
+        <select class="custom-select" id="area" name="area" onchange="GetDistrict(this)" required>
+             <option selected disabled value="">Choose...</option>
+            <option value="1">чуй</option>
+            <option value="2">нарын</option>
+
+      </select>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="district">district</label>
+      <select class="custom-select"  id="district" name="district" onchange="GetCity(this)" required>
+        <option selected disabled value="">Choose...</option>
+        <option>...</option>
+      </select>
+      <div class="invalid-tooltip">
+        Please select a valid state.
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+    <label for="district">City</label>
+      <select class="custom-select"  id="city" name="city_or_village" required>
+        <option selected disabled value="">Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+  </div>
+        <div class="form-row">
+            <div class="col-md-3 mb-3">
+                <label for="validationTooltip03">pregnancy</label>
+                <select class="custom-select" name="pregnancy" required>
+                    <option value="no">нет</option>
+                    <option value="yes">да</option>
+                </select>
+            </div>
+        </div>
+         <div class="form-row">
+            <div class="col-md-3 mb-3">
+                 <label for="validationTooltip03">если беремены то сколько недель?</label>
+                <input type="number" name="weeks_of_pregnancy" step="0.01" class="form-control" id="id_weeks_of_pregnancy">
+
+            </div>
+        </div>
+  <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
+
+{% endblock %}

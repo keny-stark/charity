@@ -1,0 +1,20 @@
+{% for article in application %}
+     <hr/>
+    <h4>Имя: {{ article.name }}</h4>
+    <p>Область {{ article.area }}</p>
+       {% if article.status == 'new' %}
+                <p class="font-weight-bold">еще нет потверждения</p>
+            {% endif %}
+            {% if article.application_in_assistance_provided.order_by %}
+                <p>помощь была оказана</p>
+            {% else %}
+                <p class="font-weight-bold">помощь еще оказывалась</p>
+            {% endif %}
+    <p>время {{ article.created_at|date:'d.m.Y H:i:s' }}</p>
+    <p>
+        <a href="{% url 'application_one_view' article.pk %}" class="btn btn-info">смотреть</a>
+        <a href="{% url 'application_update_view' article.pk %}" class="btn btn-warning">редактировать</a>
+        <a href="{% url "application_delete" article.pk %}" class="btn btn-danger">удалить</a>
+    </p>
+
+{% endfor %}

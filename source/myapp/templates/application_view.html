@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block menu %}
+{#    <main>#}
+{#            <div class="button js-button-campaign_2 btn action-btn"><span>delete selected</span></div>#}
+{#    </main>#}
+{% endblock %}
+
+{% block content %}
+{#    <form method="POST" action="{% url 'delete_more' %}">#}
+{#        {% csrf_token %}#}
+{#        <div class="overlay js-overlay-campaign_2">#}
+{#            <div class="popup js-popup-campaign_2">#}
+{#                <h2>are you sure you want to delete the marked?</h2>#}
+{#                <p><button class="action-btn" type="submit">Yes</button></p>#}
+{#                <p><a class="action-btn object-tools js-close-campaign_2">No</a></p>#}
+{#                <div class="close-popup_2 js-close-campaign"></div>#}
+{#            </div>#}
+{#        </div>#}
+
+    {% if request.user.is_anonymous  %}
+           {% for one_application in application %}
+              {% if one_application.application_in_assistance_provided.order_by %}
+                  <hr>
+                        <div class="boss_div">
+                        {% if one_application.application_in_assistance_provided.order_by and request.user.is_anonymous  %}
+                            <p>имя: {{ one_application.name }}</p>
+                            <p>номер телефона: {{ one_application.phone }}</p>
+                        {% endif %}
+                        </div>
+               {% endif %}
+           {% endfor %}
+
+    {% elif request.user.is_authenticated %}
+        {% for one_application in application %}
+            <hr>
+            <p>имя: {{ one_application.name }}</p>
+            <p>номер телефона: {{ one_application.phone }}</p>
+            {% if one_application.status == 'new' %}
+                <p class="font-weight-bold">нет потверждения</p>
+            {% endif %}
+            {% if one_application.application_in_assistance_provided.order_by %}
+                <p>помощь была оказана</p>
+            {% else %}
+                <p class="font-weight-bold">помощь не оказывалась</p>
+            {% endif %}
+{#            <p class="for_checkbox"><input type="checkbox" name="{{ one_application.pk }}" value="{{ one_application.pk }}"></p>#}
+            <div class="for_button">
+                <a href="{% url 'application_one_view' one_application.pk %}"  class="btn btn-info">узнать больше</a>
+                <a href="{% url 'application_update_view' one_application.pk %}"  class="btn btn-warning">редактировать</a>
+                <a href="{% url 'application_delete' one_application.pk %}"  class="btn btn-danger">удалить</a>
+            </div>
+        {% endfor %}
+        {% if paginator %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+    {% endif %}
+</form>
+{% endblock %}

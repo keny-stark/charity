@@ -1,0 +1,36 @@
+{#<div class="pagination">#}
+
+
+    <form action="" method="GET">
+        <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                {% if page_obj.has_previous %}
+                    <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Назад</a>
+                {% else %}
+                    <span class="page-link">Назад</span>
+                {% endif %}
+            </li>
+                    {% for page in paginator.page_range %}
+                        <li class="page-item">
+                          {% if page_obj.number == page %}
+
+                                <span class="page-active page-link for_paginator">{{ page }}</span>
+                          {% else %}
+                                    <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page }}">{{ page }}</a>
+                          {% endif %}
+                        </li>
+
+                    {% endfor %}
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                    <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Далее</a>
+                {% else %}
+                    <span class="page-link">Далее</span>
+                {% endif %}
+            </li>
+          </ul>
+        </nav>
+    </form>
+
+{#</div>#}
