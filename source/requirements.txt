@@ -1,4 +1,4 @@
-Django==2.2.4
+Django==3.1.9
 django-appconf==1.0.4
 django-user-accounts==3.0.0
 django-widget-tweaks==1.4.8
