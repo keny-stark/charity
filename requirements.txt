@@ -11,7 +11,7 @@ command-not-found==0.3
 configobj==5.0.6
 cupshelpers==1.0
 defer==1.0.6
-Django==3.0.5
+Django==3.1.13
 django-cors-headers==3.2.0
 django-widget-tweaks==1.4.5
 djangorestframework==3.11.0
